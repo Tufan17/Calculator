@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Calculator</title>
+    <style>
+        body{
+            background-color: rgb(237, 234, 247);
+        }
+        #main{
+            width:270px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        #numbers{
+            background-color: cadetblue;
+            width: 200px;
+            height: 230px;
+            float: left;
+        }
+
+        #numbers .number{
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            background-color: white;
+            margin: 3px;
+        }
+        #oparators{
+            width: 70px;
+            height: 230px;
+            background-color: rgb(182, 182, 200);
+            float: right;
+        }
+
+        #oparators .oparator{
+            width: 50px;
+            margin: 3px;
+            height: 50px;
+            border: 1px solid black;
+            background-color: white;
+            background-color: white;
+
+        }
+
+        .clear{
+            clear: both;
+        }
+
+        #resultOparators{
+            background-color: rgb(182, 182, 200);
+        }
+
+        #resultOparators .resultOparator{
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            background-color: white;
+            background-color: white;
+        }
+        #equation{
+            width: 200px !important;
+
+        }
+        #result{
+            width: 100%;
+            height: 60px;
+            margin: 0 auto;
+            background-color: aqua;
+            overflow: hidden;
+        }
+        #resultInner{
+            width: 250px;
+            height: 40px;
+            margin: 10px;
+            display: block;
+            background-color: white;
+            color: #000;
+            font-size: 30px;
+
+        }
+
+    </style>
+
+    <script>
+        window.onload=function(){
+            var sellectorOparator='';
+
+            var leftPart;
+
+            var rightPart;
+
+
+            var numbers=document.querySelectorAll(".number");
+            for(var i=0;i<numbers.length;i++){
+
+
+                numbers[i].addEventListener("click",function(){
+                    document.getElementById('resultInner').innerHTML+=this.value;
+
+
+                    if(sellectorOparator === ''){
+                        leftPart +=this.value;
+                    }else if(sellectorOparator!==''){
+                        rightPart+=this.value;
+                    }
+
+                },false);
+            }
+
+            var oparators=document.querySelectorAll(".oparator");
+            for(var i=0;i<numbers.length;i++){
+                oparators[i].addEventListener("click",function(){
+                    sellectorOparator=this.value;
+                    document.getElementById('resultInner').innerHTML+=this.value;
+
+                },false);
+                document.getElementById("equation").addEventListener("click",function (){
+                    if(sellectorOparator ==='+'){
+                        document.getElementById('resultInner').innerHTML=(parseInt(leftPart)+parseInt(rightPart)).toString();
+
+                    }
+                    else if(sellectorOparator==="-"){
+                        document.getElementById('resultInner').innerHTML=(leftPart - rightPart).toString();
+
+                    }
+                    else if(sellectorOparator==="/"){
+                        document.getElementById('resultInner').innerHTML=(leftPart / rightPart).toString();
+
+                    }
+                    else if(sellectorOparator==="*"){
+                        document.getElementById('resultInner').innerHTML=(leftPart*rightPart).toString();
+
+                    }
+
+
+
+                    document.getElementById("delete").addEventListener("click", function(){
+                        leftPart="";
+                        rightPart="";
+                        sellectorOparator="";
+                        document.getElementById('resultInner').innerHTML='';
+                    },false);
+                },false);
+
+            }
+
+
+
+
+
+
+
+
+        };
+
+    </script>
+
+</head>
+<body>
+<div id="main">
+    <h1>Calculator</h1>
+    <div id="result">
+        <div id="resultInner">
+
+        </div>
+    </div>
+    <div id="numbers">
+        <button value="7" class="number">7</button>
+        <button value="8" class="number">8</button>
+        <button value="9" class="number">9</button>
+        <button value="4" class="number">4</button>
+        <button value="5" class="number">5</button>
+        <button value="6" class="number">6</button>
+        <button value="1" class="number">1</button>
+        <button value="2" class="number">2</button>
+        <button value="3" class="number">3</button>
+        <button value="dot" class="number">.</button>
+
+    </div>
+
+    <div id="oparators">
+        <button value="+" class="oparator">+</button>
+        <button value="-" class="oparator">-</button>
+        <button value="*" class="oparator">*</button>
+        <button value="/" class="oparator">/</button>
+    </div>
+    <div class="clear"></div>
+    <div id="resultOparators">
+        <button  class="resultOparator" id="equation">=</button>
+        <button  class="resultOparator" id="delete">C</button>
+
+    </div>
+
+</div>
+</body>
+</html>
